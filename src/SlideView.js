@@ -38,6 +38,11 @@ define(function(require, exports, module) {
         });
 
         this.mainNode.add(background);
+
+        background.on('click', function() {
+            // the event output handler is used to broadcast outwards
+            this._eventOutput.emit('click');
+        }.bind(this));
     }
 
     function _createFilm() {
@@ -47,7 +52,9 @@ define(function(require, exports, module) {
             size: [this.options.filmSize, this.options.filmSize],
             properties: {
                 backgroundColor: '#222',
-                zIndex: 1
+                zIndex: 1,
+                // makes the surface invisible to clicks
+                pointerEvents: 'none'
             }
         });
 
@@ -67,7 +74,9 @@ define(function(require, exports, module) {
             size: [photoSize, photoSize],
             content: this.options.photoUrl,
             properties: {
-                zIndex: 2
+                zIndex: 2,
+                // makes the surface invisible to clicks
+                pointerEvents: 'none'
             }
         });
 
@@ -78,20 +87,6 @@ define(function(require, exports, module) {
         });
 
         this.mainNode.add(this.photoModifier).add(photo);
-    }
-
-    function _createSlides() {
-        this.slides = [];
-        this.currentIndex = 0;
-
-        for (var i = 0; i < this.options.data.length; i++) {
-            var slide = new SlideView({
-                size: this.options.size,
-                photoUrl: this.options.data[i]
-            });
-
-            this.slides.push(slide);
-        }
     }
 
     SlideView.prototype = Object.create(View.prototype);

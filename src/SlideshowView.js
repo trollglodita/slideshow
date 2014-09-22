@@ -40,7 +40,7 @@ define(function(require, exports, module) {
     function _createSlides() {
         this.slides = [];
         this.currentIndex = 0;
-
+        
         for (var i = 0; i < this.options.data.length; i++) {
             var slide = new SlideView({
                 size: this.options.size,
@@ -48,6 +48,12 @@ define(function(require, exports, module) {
             });
 
             this.slides.push(slide);
+
+            // adding click listener
+            // on click, calling .showNextSlide()
+            // note that we're binding showNextSlide to the slideshow
+            // to maintain the correct context when called
+            slide.on('click', this.showNextSlide.bind(this));
         }
 
         this.showCurrentSlide();
@@ -57,6 +63,12 @@ define(function(require, exports, module) {
     SlideshowView.prototype.showCurrentSlide = function() {
         var slide = this.slides[this.currentIndex];
         this.lightbox.show(slide);
+    };
+
+    SlideshowView.prototype.showNextSlide = function() {
+        this.currentIndex++;
+        if (this.currentIndex === this.slides.length) this.currentIndex = 0;
+        this.showCurrentSlide();
     };
 
     module.exports = SlideshowView;
