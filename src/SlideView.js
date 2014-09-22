@@ -7,14 +7,14 @@ define(function(require, exports, module) {
 	var StateModifier = require('famous/modifiers/StateModifier');
 
     SlideView.DEFAULT_OPTIONS = {
-
+    	size: [400, 500]
     };
 
     function SlideView(options) {
        View.apply(this, arguments);
 
        this.rootModifier = new StateModifier({
-       		size: [400, 500]
+       		size: this.options.size
        });
 
        this.mainNode = this.add(this.rootModifier);
