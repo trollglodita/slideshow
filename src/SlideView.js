@@ -1,9 +1,7 @@
 define(function(require, exports, module) {
 	var View = require('famous/core/View');
-	var Engine = require('famous/core/Engine');
     var Surface = require('famous/core/Surface');
     var Transform = require('famous/core/Transform');
-    var RenderNode = require('famous/core/RenderNode');
 	var StateModifier = require('famous/modifiers/StateModifier');
 	var ImageSurface = require('famous/surfaces/ImageSurface');
 
@@ -80,6 +78,20 @@ define(function(require, exports, module) {
         });
 
         this.mainNode.add(this.photoModifier).add(photo);
+    }
+
+    function _createSlides() {
+        this.slides = [];
+        this.currentIndex = 0;
+
+        for (var i = 0; i < this.options.data.length; i++) {
+            var slide = new SlideView({
+                size: this.options.size,
+                photoUrl: this.options.data[i]
+            });
+
+            this.slides.push(slide);
+        }
     }
 
     SlideView.prototype = Object.create(View.prototype);
