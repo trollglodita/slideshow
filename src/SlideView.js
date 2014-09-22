@@ -19,7 +19,11 @@ define(function(require, exports, module) {
 
        this.mainNode = this.add(this.rootModifier);
 
-       var background = new Surface({
+       _creteBackground.call(this);
+    }
+
+    function _creteBackground () {
+    	var background = new Surface({
                // undefined size will inherit size from parent modifier
             properties: {
                 backgroundColor: '#FFFFF5',
@@ -27,7 +31,7 @@ define(function(require, exports, module) {
             }
         });
 
-       this.mainNode.add(background);
+        this.mainNode.add(background);
     }
 
     SlideView.prototype = Object.create(View.prototype);
