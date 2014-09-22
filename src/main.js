@@ -20,7 +20,7 @@ define(function(require, exports, module) {
         data = SlideData.parse(data);
 
         // instantiates AppView with our url data
-        var appView = new AppView({ data : data });
+        var appView = new View({ data : data });
 
         mainContext.add(appView);
     }
